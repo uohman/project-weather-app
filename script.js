@@ -1,5 +1,4 @@
 // Api 
-const API = 'https://api.openweathermap.org/data/2.5/weather?q=Amsterdam,Netherlands&units=metric&appid=26500228b15aa40fc0617041c68bf843'
 const apiForeCast = 'https://api.openweathermap.org/data/2.5/forecast?q=Amsterdam,Netherlands&units=metric&appid=26500228b15aa40fc0617041c68bf843'
 
 // Global DOM selectors
@@ -10,8 +9,8 @@ const icon = document.getElementById("icon")
 const message = document.getElementById("message")
 const forCast = document.getElementById('forCast')
 
-// fetch the API for header section 
-fetch (API)
+searchCity.addEventListener('change', (event) => {
+fetch ((`https://api.openweathermap.org/data/2.5/weather?q=${event.target.value}&units=metric&appid=26500228b15aa40fc0617041c68bf843`))
 .then ((response) => {
     return response.json ()
 })
@@ -57,6 +56,7 @@ if (currentDescription === "Clear") {
 }
 }
 )
+})
 
 // turning the date to a string short weekday. 
 const weekDay = (data) => {
@@ -65,6 +65,7 @@ const weekDay = (data) => {
         weekday:'short',
     });
 };
+
 
 
 //ForeCast table for 5 days - fetch API from new api URL 
@@ -79,35 +80,25 @@ fetch(apiForeCast)
   
   // printed out forcast. filterTable [x] changes depends of which day. 
   forCast.innerHTML += `
-  <div class="day">${weekDay(filterTable[0].dt)}</div>
-  <div class="temp"> ${filterTable[0].main.temp.toFixed(0)}°</div>
-  
-  <div class="day">${weekDay(filterTable[1].dt)}</div>
-  <div class="temp"> ${filterTable[1].main.temp.toFixed(0)}°</div>
-  
-  <div class="day">${weekDay(filterTable[2].dt)}</div>
-  <div class="temp"> ${filterTable[2].main.temp.toFixed(0)}°</div>
-
+<div class="dayAndTemp">
+    <div class="day">${weekDay(filterTable[0].dt)}</div>
+    <div class="temp"> ${filterTable[0].main.temp.toFixed(0)}°</div>
+</div>
+<div class="dayAndTemp">
+    <div class="day">${weekDay(filterTable[1].dt)}</div>
+    <div class="temp"> ${filterTable[1].main.temp.toFixed(0)}°</div>
+</div>
+<div class="dayAndTemp">
+    <div class="day">${weekDay(filterTable[2].dt)}</div>
+    <div class="temp"> ${filterTable[2].main.temp.toFixed(0)}°</div>
+</div>
+<div class="dayAndTemp">
   <div class="day">${weekDay(filterTable[3].dt)}</div>
   <div class="temp"> ${filterTable[3].main.temp.toFixed(0)}°</div>
-
+</div>
+<div class="dayAndTemp">
   <div class="day">${weekDay(filterTable[4].dt)}</div>
   <div class="temp"> ${filterTable[4].main.temp.toFixed(0)}°</div>
+</div>
   `
 })
-
-
- //THIS IS DANIEL SEARCH BAD
- //mainSearchbar.addEventListener('change', (event) => {
-    //fetch(`https://api.openweathermap.org/data/2.5/weather?q={event.target.value}&units=metric&appid=26500228b15aa40fc0617041c68bf843`)
-    //.then(response => {
-        //if(response.status ==200) {
-            //return response.json();
-        //} else {
-            //throw(new Error('bad response'));
-        //})
-        //.then(readableResponse =. {
-            //xxx.innerHTML = readableResponse.xxx
-            //xxx.innerHTML = readableResponse.xxx
-        //})
- // test
